@@ -4,6 +4,11 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
 from typing_extensions import TypedDict
+import os
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
 
 try:
     from .tools import get_tools
@@ -15,11 +20,11 @@ class State(TypedDict):
 
 def create_agent():
     """创建 LangGraph Agent"""
-    # LB One API 配置
+    # 从环境变量读取配置
     llm = ChatOpenAI(
-        model="claude-sonnet-4-5-20250929",
-        base_url="https://lboneapi.longbridge-inc.com/v1",
-        api_key="sk-WOc49F7TwttlijpI2w4nu70r1jFWqAMiQT818FK0yrOF9dJG",
+        model=os.getenv("MODEL_NAME", "claude-sonnet-4-5-20250929"),
+        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=os.getenv("OPENAI_API_KEY"),
         temperature=0.7,
         streaming=True
     )
