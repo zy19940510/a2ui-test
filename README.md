@@ -2,7 +2,7 @@
 
 [English](./README_EN.md) | 简体中文
 
-A2UI Test 是一个基于 Monorepo 的全栈示例项目，包含 Web 前端、Gateway 网关、AI Agent，以及供 Agent 消费的 ComponentDoc MCP 服务。
+A2UI Test 是一个开源的 Monorepo 全栈示例，包含 Web 前端、Gateway 网关、AI Agent，以及供 Agent 消费的 ComponentDoc MCP 服务。
 
 ## 当前结构（最新）
 
@@ -41,23 +41,24 @@ a2ui-test/
 
 ## 安装依赖
 
-```bash
-# 根目录（Bun workspaces）
-cd /Users/ethan/code/a2ui-test
-bun install
+在仓库根目录执行：
 
-# Python 子应用
-cd apps/ai-agent && uv sync
-cd ../gateway && uv sync
-cd ../../packages/mcp/ComponentDoc && uv sync
+```bash
+bun run setup
+```
+
+等价命令：
+
+```bash
+bun install
+bun run setup:python
 ```
 
 ## 环境变量
 
-Agent 读取 `apps/ai-agent/.env`：
+Agent 使用 `apps/ai-agent/.env`：
 
 ```bash
-cd /Users/ethan/code/a2ui-test
 cp apps/ai-agent/.env.example apps/ai-agent/.env
 ```
 
@@ -67,40 +68,34 @@ cp apps/ai-agent/.env.example apps/ai-agent/.env
 - `OPENAI_BASE_URL`
 - `MODEL_NAME`
 
+如果你使用的是 `ONE_API_KEY / ONE_BASE_URL`，请映射到 `OPENAI_*` 变量。
+
 ## 启动（开发模式）
 
-建议 3 个终端：
+在根目录使用脚本：
 
 ```bash
-# 终端 1: ComponentDoc MCP
-cd /Users/ethan/code/a2ui-test/packages/mcp/ComponentDoc
-uv run python main.py
-
-# 终端 2: Gateway
-cd /Users/ethan/code/a2ui-test/apps/gateway
-uv run uvicorn main:app --reload --port 8000
-
-# 终端 3: Web
-cd /Users/ethan/code/a2ui-test/apps/web
+# 一键启动 MCP + Gateway + Web
 bun run dev
 ```
 
-说明：
+也可以分开启动：
 
-- `apps/web` 的 `predev/prebuild` 会自动执行 `build:deps`，预构建 `packages/a2ui-web` 产物。
-- Gateway 会直接按路径加载 `apps/ai-agent/src`，不需要单独启动 Agent HTTP 服务。
+```bash
+bun run dev:mcp
+bun run dev:gateway
+bun run dev:web
+```
 
 ## 常用命令
 
 ```bash
 # 预构建 a2ui-web 依赖包
-cd /Users/ethan/code/a2ui-test
 bun run build:a2ui-web
 
-# Web 质量检查
-cd /Users/ethan/code/a2ui-test/apps/web
-bun run lint
-bun run build
+# Web 检查与构建
+bun run lint:web
+bun run build:web
 ```
 
 ## 访问地址

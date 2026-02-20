@@ -10,17 +10,24 @@
 
 ## 依赖安装
 
+在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/apps/ai-agent
+bun run setup:python
+```
+
+或在当前目录执行：
+
+```bash
 uv sync
 ```
 
 ## 环境变量
 
-在当前目录放置 `.env`：
+在仓库根目录执行：
 
 ```bash
-cp .env.example .env
+cp apps/ai-agent/.env.example apps/ai-agent/.env
 ```
 
 必填项：
@@ -37,10 +44,8 @@ cp .env.example .env
 uv run python main.py
 ```
 
-实际业务由 `apps/gateway` 通过导入 `src/agent.py` 来驱动，不需要单独对外启动 Agent 服务。
+实际业务由 `apps/gateway` 通过导入 `src/agent.py` 驱动，不需要单独对外启动 Agent 服务。
 
 ## 与 MCP 的关系
 
-`src/tools.py` 默认访问 `http://127.0.0.1:9527/mcp`，因此使用组件文档相关工具时，需要先启动：
-
-- `packages/mcp/ComponentDoc/main.py`
+`src/tools.py` 默认访问 `http://127.0.0.1:9527/mcp`，因此使用组件文档工具时，需要先启动 `packages/mcp/ComponentDoc/main.py`。

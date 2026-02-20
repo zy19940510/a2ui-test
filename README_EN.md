@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.md)
 
-A2UI Test is a monorepo full-stack sample including a Web app, Gateway, AI Agent, and a ComponentDoc MCP service used by the agent tooling.
+A2UI Test is an open-source monorepo full-stack sample, including a Web app, Gateway, AI Agent, and a ComponentDoc MCP service used by agent tools.
 
 ## Current Structure (Latest)
 
@@ -41,15 +41,17 @@ a2ui-test/
 
 ## Install Dependencies
 
-```bash
-# Repo root (Bun workspaces)
-cd /Users/ethan/code/a2ui-test
-bun install
+Run in repo root:
 
-# Python apps
-cd apps/ai-agent && uv sync
-cd ../gateway && uv sync
-cd ../../packages/mcp/ComponentDoc && uv sync
+```bash
+bun run setup
+```
+
+Equivalent commands:
+
+```bash
+bun install
+bun run setup:python
 ```
 
 ## Environment Variables
@@ -57,7 +59,6 @@ cd ../../packages/mcp/ComponentDoc && uv sync
 Agent reads `apps/ai-agent/.env`:
 
 ```bash
-cd /Users/ethan/code/a2ui-test
 cp apps/ai-agent/.env.example apps/ai-agent/.env
 ```
 
@@ -67,42 +68,34 @@ Required keys:
 - `OPENAI_BASE_URL`
 - `MODEL_NAME`
 
-If your provider uses `ONE_API_KEY / ONE_BASE_URL`, map them to the `OPENAI_*` keys above.
+If your provider uses `ONE_API_KEY / ONE_BASE_URL`, map them to `OPENAI_*` keys.
 
 ## Start (Development)
 
-Use 3 terminals:
+Use root scripts:
 
 ```bash
-# Terminal 1: ComponentDoc MCP
-cd /Users/ethan/code/a2ui-test/packages/mcp/ComponentDoc
-uv run python main.py
-
-# Terminal 2: Gateway
-cd /Users/ethan/code/a2ui-test/apps/gateway
-uv run uvicorn main:app --reload --port 8000
-
-# Terminal 3: Web
-cd /Users/ethan/code/a2ui-test/apps/web
+# Start MCP + Gateway + Web together
 bun run dev
 ```
 
-Notes:
+Or run them separately:
 
-- `apps/web` has `predev/prebuild` hooks to build `packages/a2ui-web` dependencies automatically.
-- Gateway imports `apps/ai-agent/src` directly by path, so no standalone agent HTTP service is required.
+```bash
+bun run dev:mcp
+bun run dev:gateway
+bun run dev:web
+```
 
 ## Common Commands
 
 ```bash
 # Build a2ui-web package dependencies
-cd /Users/ethan/code/a2ui-test
 bun run build:a2ui-web
 
-# Web checks
-cd /Users/ethan/code/a2ui-test/apps/web
-bun run lint
-bun run build
+# Web checks and build
+bun run lint:web
+bun run build:web
 ```
 
 ## Endpoints

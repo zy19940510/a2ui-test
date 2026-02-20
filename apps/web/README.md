@@ -7,22 +7,22 @@
 - Next.js 16.1.6
 - React 19
 - Tailwind CSS 4
-- A2UI React Renderer（来自 workspace 包）
+- A2UI React Renderer（workspace 包）
 
 ## 依赖安装
 
-推荐在仓库根目录执行：
+在仓库根目录执行：
 
 ```bash
-cd /Users/ethan/code/a2ui-test
 bun install
 ```
 
 ## 启动开发环境
 
+推荐在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/apps/web
-bun run dev
+bun run dev:web
 ```
 
 说明：
@@ -33,16 +33,13 @@ bun run dev
 ## 常用命令
 
 ```bash
-# 开发
-bun run dev
+# 根目录快捷命令
+bun run lint:web
+bun run build:web
 
-# 检查
+# 或在 apps/web 下执行
 bun run lint
-
-# 构建
 bun run build
-
-# 生产启动
 bun run start
 ```
 

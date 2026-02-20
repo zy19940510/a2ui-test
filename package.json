@@ -2,7 +2,18 @@
   "name": "a2ui-test",
   "private": true,
   "scripts": {
-    "build:a2ui-web": "bun run --filter @a2ui-web/lit-core build && bun run --filter @a2ui-web/animations build && bun run --filter @a2ui-web/utils build && bun run --filter @a2ui-web/a2ui-react-renderer build"
+    "setup": "bun install && bun run setup:python",
+    "setup:python": "uv --directory apps/ai-agent sync && uv --directory apps/gateway sync && uv --directory packages/mcp/ComponentDoc sync",
+    "build:a2ui-web": "bun run --filter @a2ui-web/lit-core build && bun run --filter @a2ui-web/animations build && bun run --filter @a2ui-web/utils build && bun run --filter @a2ui-web/a2ui-react-renderer build",
+    "dev:web": "bun --cwd apps/web dev",
+    "dev:gateway": "uv --directory apps/gateway run uvicorn main:app --reload --port 8000",
+    "dev:mcp": "uv --directory packages/mcp/ComponentDoc run python main.py",
+    "dev": "concurrently -k -n MCP,GATEWAY,WEB -c cyan,green,blue \"bun run dev:mcp\" \"bun run dev:gateway\" \"bun run dev:web\"",
+    "lint:web": "bun --cwd apps/web lint",
+    "build:web": "bun --cwd apps/web build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   },
   "workspaces": [
     "apps/*",

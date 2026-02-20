@@ -9,15 +9,29 @@
 
 ## 依赖安装
 
+在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/apps/gateway
+bun run setup:python
+```
+
+或在当前目录执行：
+
+```bash
 uv sync
 ```
 
 ## 启动
 
+推荐在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/apps/gateway
+bun run dev:gateway
+```
+
+等价命令（在当前目录）：
+
+```bash
 uv run uvicorn main:app --reload --port 8000
 ```
 
@@ -37,5 +51,5 @@ curl -X POST http://localhost:8000/api/chat/stream \
 
 ## 依赖关系
 
-- 通过绝对路径导入 `apps/ai-agent/src`，不依赖当前工作目录。
+- 通过绝对路径逻辑导入 `apps/ai-agent/src`，不依赖当前工作目录。
 - 如需使用组件文档工具，请确保 `packages/mcp/ComponentDoc` 已启动。

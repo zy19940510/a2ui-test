@@ -4,7 +4,7 @@ ComponentDoc 是一个 FastMCP 服务，提供组件文档查询能力，供 `ap
 
 ## 文档来源
 
-服务会读取当前目录下的 `docs/*.md`：
+服务读取当前目录下的 `docs/*.md`：
 
 - `packages/mcp/ComponentDoc/docs/*.md`
 
@@ -18,8 +18,16 @@ ComponentDoc 是一个 FastMCP 服务，提供组件文档查询能力，供 `ap
 
 ## 安装与启动
 
+在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/packages/mcp/ComponentDoc
+bun run setup:python
+bun run dev:mcp
+```
+
+等价本地命令（在当前目录）：
+
+```bash
 uv sync
 uv run python main.py
 ```
@@ -31,7 +39,6 @@ uv run python main.py
 ## 本地烟测
 
 ```bash
-cd /Users/ethan/code/a2ui-test/packages/mcp/ComponentDoc
 uv run python - <<'PY'
 from main import _load_docs
 print('docs:', len(_load_docs()))

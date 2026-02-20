@@ -8,10 +8,11 @@
 
 ## 快速开始
 
+在仓库根目录执行：
+
 ```bash
-cd /Users/ethan/code/a2ui-test/packages/mcp/ComponentDoc
-uv sync
-uv run python main.py
+bun run setup:python
+bun run dev:mcp
 ```
 
 服务默认监听：
